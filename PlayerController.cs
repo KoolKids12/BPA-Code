@@ -4,37 +4,37 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float speed;
-    private Rigidbody rb;
-    public float JumpForce;
-    public Vector3 jump;
-    private bool IsGrounded; // cheacking if the object conected to it is on the "ground"
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        rb = GetComponent<Rigidbody>();
-    }
+    public float moveSpeed = 5f;
+    public Rigidbody2D rb;
+    public Weapon weapon;
+
+    Vector2 moveDirection;
+    Vector2 mousePosition;
+
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
+        
+        float moveX = Input.GetAxisRaw("Horizontal");
+        float moveY = Input.GetAxisRaw("Vertical");
 
-        float horizontalMovement = Input.GetAxis("Horizontal");
-        float verticalMovement = Input.GetAxis("Vertical");
-        bool jumpMovement = Input.GetKeyDown("space");  // initilazing space as jump
-
-        Vector3 movement = new Vector3(horizontalMovement, 0f, verticalMovement);
-        rb.AddForce(movement * speed);
-
-        if (Input.GetKeyDown ("space") && IsGrounded == true) // here down can be removed if you dont want a jump function added in
+        if(Input.GetMouseButtonDown(0))
         {
-            rb.AddForce(jump * JumpForce, ForceMode.Impulse);
-            IsGrounded = false;
+            weapon.Fire();
         }
+
+        moveDirection = new Vector2(moveX, moveY).normalized;
+        mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);    
     }
-    void OnCollisionEnter()
-    {
-        IsGrounded = true;
-    }
+
+     private void FixedUpdate()
+        {
+            rb.velocity = new Vector2(moveDirection.x * moveSpeed, moveDirection.y * moveSpeed);
+
+            Vector2 aimDirection = mousePosition - rb.position;
+            float aimAngle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg - 90f;
+            rb.rotation = aimAngle;
+        }
 }
