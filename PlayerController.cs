@@ -4,14 +4,20 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-
+    [SerializeField] float health, maxhealth = 3f;
     public float moveSpeed = 5f;
     public Rigidbody2D rb;
     public Weapon weapon;
+    public Weapon magic;
 
     Vector2 moveDirection;
     Vector2 mousePosition;
 
+
+    private void Start()
+    {
+     health = maxhealth;
+    }
 
     // Update is called once per frame
     void Update()
@@ -23,6 +29,12 @@ public class PlayerController : MonoBehaviour
         if(Input.GetMouseButtonDown(0))
         {
             weapon.Fire();
+        }
+
+        
+        if(Input.GetMouseButtonDown(1))
+        {
+            magic.Fire();
         }
 
         moveDirection = new Vector2(moveX, moveY).normalized;
@@ -37,4 +49,13 @@ public class PlayerController : MonoBehaviour
             float aimAngle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg - 90f;
             rb.rotation = aimAngle;
         }
+
+     public void TakeDamage(float damageAmount)
+    {
+        health -= damageAmount; // 3 -> 2 -> 1 -> dead
+        if(health <=0)
+        {
+            Destroy(gameObject);
+        }
+    }
 }
