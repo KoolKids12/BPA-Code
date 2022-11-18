@@ -51,4 +51,4 @@ public class Enemy : MonoBehaviour
             OnEnemyKilled?.Invoke(this);
         }
     }
-} 
+}
