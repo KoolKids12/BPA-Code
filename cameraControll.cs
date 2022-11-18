@@ -41,3 +41,4 @@ public class cameraControll : MonoBehaviour
         transform.position = _target.position - transform.forward * _distanceFromTarget;
     }
 }
+ 
