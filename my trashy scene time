@@ -1,0 +1,20 @@
+using Systems.Collections;
+using Systems.Collections.Generic;
+using UnitiEngine.SceneManagement;
+using UnityEngine;
+
+public class ChangeSceneOnTimer : MonoBehaviour
+{
+    public float changeTime;
+    public string sceneName;
+    
+    private void Update()
+    {
+        changeTime -= Time.deltaTime;
+        if(changetime <= 0)
+        {
+            SceneManager.LoadScene();
+        }
+    }
+    
+}
