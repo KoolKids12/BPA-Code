@@ -58,4 +58,18 @@ public class PlayerController : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Fire")
+        {
+            TakeDamage(1);
+            Debug.Log("hit");
+        }
+        else if (collision.gameObject.tag == "Orc")
+        {
+            TakeDamage(3);
+            Debug.Log("hit");
+        }
+    }  
+    
 }
