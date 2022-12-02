@@ -71,5 +71,17 @@ public class PlayerController : MonoBehaviour
             Debug.Log("hit");
         }
     }  
+    else if (collision.gameObject.tag == "Health")
+        {
+            if (health >= maxhealth)
+                {
+                    Debug.Log("no heal");
+                }
+            else if (health < maxhealth)
+                {
+                    health = health + 1;
+                    Debug.Log("heal 1");
+                }
+        }
     
 }
