@@ -51,4 +51,11 @@ public class Enemy : MonoBehaviour
             OnEnemyKilled?.Invoke(this);
         }
     }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.tag == "Player")
+        {
+        collision.gameObject.transform.tag = "Player2";
+        }
+    }
 } 
