@@ -48,6 +48,11 @@ public class PlayerController : MonoBehaviour
             Vector2 aimDirection = mousePosition - rb.position;
             float aimAngle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg - 90f;
             rb.rotation = aimAngle;
+        
+            if(health == maxhealth)
+            {
+                gameObject.transform.tag = "Player";
+            }
         }
 
      public void TakeDamage(float damageAmount)
@@ -58,4 +63,31 @@ public class PlayerController : MonoBehaviour
             Destroy(gameObject);
         }
     }
+       private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Fire")
+        {
+            TakeDamage(1);
+            Debug.Log("hit");
+     
+        }
+        else if (collision.gameObject.tag == "Orc")
+        {
+            TakeDamage(3);
+            Debug.Log("hit");
+        }
+        else if(collision.gameObject.tag == "Health")
+        {
+            if (health < maxhealth)
+            {
+                health = health + 1;
+                Debug.Log("heal");
+            }
+            else
+            {
+                Debug.Log("No heal");
+            }
+        }
+    }  
+
 }
