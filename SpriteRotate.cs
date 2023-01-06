@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class SpriteRotate : MonoBehaviour
 {
+
   void Update () 
   {
+
+
     transform.localRotation = transform.localRotation * Quaternion.Inverse(transform.rotation);
   }
 }
